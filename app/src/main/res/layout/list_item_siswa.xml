@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/id"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/deffont"
+        android:layout_weight="0.25"
+        android:textSize="18sp"
+        android:text="id"/>
+
+    <TextView
+        android:id="@+id/nama"
+        android:layout_width="0dp"
+        android:textSize="18sp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.75"
+        android:fontFamily="@font/deffont"
+        android:text="nama" />
+
+
+
+</LinearLayout>
