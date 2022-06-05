@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public class SiswaAdapter extends ArrayAdapter<Siswa> {
         TextView nama = view.findViewById(R.id.nama);
 
         Button editbtn = (Button)view.findViewById(R.id.edit_button);
+        mydb = new DBHelper(view.getContext());
 
         id.setText(siswa.getId());
         nama.setText(siswa.getNama());
@@ -49,24 +51,28 @@ public class SiswaAdapter extends ArrayAdapter<Siswa> {
                 builder.setTitle("Edit Nama");
                 final EditText input = new EditText(getContext());
                 builder.setView(input);
-                input.setText(id.getText().toString());
+                input.setText(nama.getText().toString().trim());
 
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("SIMPAN", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String editnama;
-                        editnama = input.getText().toString();
+                        editnama = input.getText().toString().trim();
                         Toast.makeText(getContext(),editnama, Toast.LENGTH_SHORT).show();
-//                        mydb.updateData(id.getText().toString(), nama.getText().toString());
-//                        notifyDataSetChanged();
+
+                        boolean isUpdate = mydb.updateData(id.getText().toString().trim(), editnama);
+                        if(isUpdate) {
+                            notifyDataSetChanged(); //<-- useless piece of shiy
+                            Toast.makeText(getContext(),"Data Tersimpan", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(),"Gagal Menyimpan Data", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
-
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
             }
         });
-
         return view;
     }
 }

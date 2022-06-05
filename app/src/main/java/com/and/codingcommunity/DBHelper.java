@@ -1,10 +1,14 @@
 package com.and.codingcommunity;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.nfc.Tag;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -12,7 +16,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "siswasmk2yk.db";
 
-    public static final String SISWA_TABLE_NAME = "daftar_siswa";
+    public static final String SISWA_TABLE_NAME = "siswa";
 
     public static final String SISWA_COLUMN_ID = "id";
     public static final String SISWA_COLUMN_NAME = "name";
@@ -74,8 +78,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", nama);
+        String query = "UPDATE " + SISWA_TABLE_NAME + " SET " + SISWA_COLUMN_NAME + " = '" + nama + "' WHERE " + SISWA_COLUMN_ID + " = '" + id + "'";
+        Log.d(TAG, "Query =" + query);
+        db.execSQL(query);
 
-        db.update("siswa", contentValues, "ID = ?", new String[]{id});
         return true;
     }
 

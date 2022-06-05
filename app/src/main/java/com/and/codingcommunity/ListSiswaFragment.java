@@ -1,6 +1,7 @@
 package com.and.codingcommunity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,20 @@ public class ListSiswaFragment extends Fragment {
 
         siswaAdapter = new SiswaAdapter(getActivity(),0, arrayList);
         listSiswa.setAdapter(siswaAdapter);
+
+        //auto update every 1 second because  i canr figure out how to refresh listview from inside the edit button in the adapter bruhhhhhhhhhhhh
+        final Handler handler = new Handler();
+        handler.postDelayed( new Runnable() {
+
+            @Override
+            public void run() {
+                ArrayList array_list = mydb.getAllSiswa();
+                siswaAdapter.clear();
+                siswaAdapter.addAll(array_list);
+                siswaAdapter.notifyDataSetChanged();
+                handler.postDelayed( this, 1000 );
+            }
+        }, 1000 );
     }
 
     public void refreshList() {
@@ -48,6 +63,5 @@ public class ListSiswaFragment extends Fragment {
         siswaAdapter.addAll(array_list);
         siswaAdapter.notifyDataSetChanged();
     }
-
 
 }
