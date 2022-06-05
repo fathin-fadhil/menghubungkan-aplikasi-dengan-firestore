@@ -23,7 +23,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/id"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="20dp"
             />
 
         <com.google.android.material.button.MaterialButton
@@ -54,7 +54,7 @@
 
         <TextView
             android:id="@+id/id"
-            android:layout_width="25dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
             android:fontFamily="@font/deffont"
