@@ -26,12 +26,14 @@ public class InsertSiswaFragment extends Fragment {
     private DBHelper mydb;
     Button btnSave;
     EditText editTextNama;
+    EditText editTextId;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         mydb = new DBHelper(getActivity());
         btnSave = view.findViewById(R.id.btn_save);
         editTextNama = view.findViewById(R.id.etext_nama);
+        editTextId = view.findViewById(R.id.text_id);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +43,7 @@ public class InsertSiswaFragment extends Fragment {
                 } else {
 
 
-                    mydb.insertSiswa(editTextNama.getText().toString());
+                    mydb.insertSiswa(editTextNama.getText().toString().trim(), editTextId.getText().toString().trim());
 
                     FragmentManager fm = getActivity().getSupportFragmentManager();
                     ListSiswaFragment fragm = (ListSiswaFragment)

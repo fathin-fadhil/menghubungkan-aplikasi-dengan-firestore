@@ -40,11 +40,12 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public void insertSiswa(String name) {
+    public void insertSiswa(String name, String id) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
+        contentValues.put("id", id);
         contentValues.put("name", name);
 
         db.insert("siswa", null, contentValues);
