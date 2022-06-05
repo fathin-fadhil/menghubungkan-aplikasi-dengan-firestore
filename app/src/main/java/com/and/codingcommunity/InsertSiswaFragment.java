@@ -38,10 +38,10 @@ public class InsertSiswaFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(editTextNama.getText().toString())) {
-                    editTextNama.setError("Data Kosong");
+                if(TextUtils.isEmpty(editTextNama.getText().toString()) || TextUtils.isEmpty(editTextId.getText().toString())) {
+                    editTextNama.setError("Nama Kosong");
+                    editTextId.setError("ID Kosong");
                 } else {
-
 
                     mydb.insertSiswa(editTextNama.getText().toString().trim(), editTextId.getText().toString().trim());
 
