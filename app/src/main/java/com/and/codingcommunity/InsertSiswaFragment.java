@@ -1,6 +1,7 @@
 package com.and.codingcommunity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,12 +36,17 @@ public class InsertSiswaFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mydb.insertSiswa(editTextNama.getText().toString());
+                if(TextUtils.isEmpty(editTextNama.getText().toString())) {
+                    editTextNama.setError("Data Kosong");
+                } else {
+                    mydb.insertSiswa(editTextNama.getText().toString());
 
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                ListSiswaFragment fragm = (ListSiswaFragment)
-                        fm.findFragmentById(R.id.fragment_list_siswa);
-                fragm.refreshList();
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
+                    ListSiswaFragment fragm = (ListSiswaFragment)
+                            fm.findFragmentById(R.id.fragment_list_siswa);
+                    fragm.refreshList();
+                }
+
             }
         });
     }

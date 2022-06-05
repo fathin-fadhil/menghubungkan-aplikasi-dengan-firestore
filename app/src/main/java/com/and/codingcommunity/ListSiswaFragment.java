@@ -51,17 +51,3 @@ public class ListSiswaFragment extends Fragment {
 
 
 }
-
-//                ArrayList<Siswa> arrayList = new ArrayList<>();
-//        arrayList.add(new Siswa("1", "Fathin Fadhil Mufid"));
-//        arrayList.add(new Siswa("2", "AAaaaa aaaaaa"));
-//
-//
-//        listSiswa = view.findViewById(R.id.list_siswa);
-//
-//        siswaAdapter = new SiswaAdapter(getActivity(), 0, arrayList);
-//        listSiswa.setAdapter(siswaAdapter);
-//
-//    }
-//
-//}

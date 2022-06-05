@@ -4,12 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Document/AndroidProject/CodingCommunity/app/src/main/res/layout/aaa.xml" value="0.2015625" />
-        <entry key="..\:/Document/AndroidProject/CodingCommunity/app/src/main/res/layout/activity_dashboard.xml" value="0.2" />
+        <entry key="..\:/Document/AndroidProject/CodingCommunity/app/src/main/res/layout/activity_dashboard.xml" value="0.1" />
         <entry key="..\:/Document/AndroidProject/CodingCommunity/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Document/AndroidProject/CodingCommunity/app/src/main/res/layout/activity_register.xml" value="0.33" />
         <entry key="..\:/Document/AndroidProject/CodingCommunity/app/src/main/res/layout/insert_fragment.xml" value="0.38697916666666665" />
-        <entry key="..\:/Document/AndroidProject/CodingCommunity/app/src/main/res/layout/list_item_siswa.xml" value="0.25" />
+        <entry key="..\:/Document/AndroidProject/CodingCommunity/app/src/main/res/layout/list_item_siswa.xml" value="0.36236391912908245" />
         <entry key="..\:/Document/AndroidProject/CodingCommunity/app/src/main/res/layout/list_siswa_fragment.xml" value="0.25" />
+        <entry key="..\:/Document/AndroidProject/CodingCommunity/app/src/main/res/menu/logoutmenu.xml" value="0.23802083333333332" />
       </map>
     </option>
   </component>
