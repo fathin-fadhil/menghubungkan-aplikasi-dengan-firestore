@@ -39,6 +39,8 @@ public class InsertSiswaFragment extends Fragment {
                 if(TextUtils.isEmpty(editTextNama.getText().toString())) {
                     editTextNama.setError("Data Kosong");
                 } else {
+
+
                     mydb.insertSiswa(editTextNama.getText().toString());
 
                     FragmentManager fm = getActivity().getSupportFragmentManager();
