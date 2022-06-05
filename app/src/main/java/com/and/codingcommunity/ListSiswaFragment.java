@@ -47,10 +47,7 @@ public class ListSiswaFragment extends Fragment {
 
             @Override
             public void run() {
-                ArrayList array_list = mydb.getAllSiswa();
-                siswaAdapter.clear();
-                siswaAdapter.addAll(array_list);
-                siswaAdapter.notifyDataSetChanged();
+                refreshList();
                 handler.postDelayed( this, 1000 );
             }
         }, 1000 );

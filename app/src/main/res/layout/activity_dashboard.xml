@@ -14,7 +14,8 @@
         android:id="@+id/fragment_insert_siswa"
         android:name="com.and.codingcommunity.InsertSiswaFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
 
         />
 
@@ -23,6 +24,6 @@
         android:name="com.and.codingcommunity.ListSiswaFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.9" />
+        android:layout_weight="0.85" />
 
 </LinearLayout>
