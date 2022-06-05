@@ -13,10 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class SiswaAdapter extends ArrayAdapter<Siswa> {
 
@@ -38,6 +37,7 @@ public class SiswaAdapter extends ArrayAdapter<Siswa> {
         TextView nama = view.findViewById(R.id.nama);
 
         Button editbtn = (Button)view.findViewById(R.id.edit_button);
+        Button deletebtn = (Button)view.findViewById(R.id.delete_button);
         mydb = new DBHelper(view.getContext());
 
         id.setText(siswa.getId());
@@ -46,7 +46,7 @@ public class SiswaAdapter extends ArrayAdapter<Siswa> {
         editbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(),id.getText().toString(), Toast.LENGTH_LONG).show();
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Edit Nama");
                 final EditText input = new EditText(getContext());
@@ -67,6 +67,42 @@ public class SiswaAdapter extends ArrayAdapter<Siswa> {
                         } else {
                             Toast.makeText(getContext(),"Gagal Menyimpan Data", Toast.LENGTH_SHORT).show();
                         }
+                    }
+                });
+
+                builder.setNegativeButton("BATAL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        dialogInterface.cancel();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        });
+
+        deletebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Confirm Deletion");
+                builder.setMessage("Hapus Data?");
+                builder.setPositiveButton("HAPUS", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        boolean isDeleted = mydb.deleteData(id.getText().toString().trim());
+                        if(isDeleted) {
+                            notifyDataSetChanged(); //<-- useless piece of shiy
+                            Toast.makeText(getContext(),"Data Terhapus", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(),"Gagal Menghapus Data", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.setNegativeButton("BATAL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        dialogInterface.cancel();
                     }
                 });
                 AlertDialog alertDialog = builder.create();

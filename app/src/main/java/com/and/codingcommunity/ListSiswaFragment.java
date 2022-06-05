@@ -54,6 +54,7 @@ public class ListSiswaFragment extends Fragment {
                 handler.postDelayed( this, 1000 );
             }
         }, 1000 );
+
     }
 
     public void refreshList() {

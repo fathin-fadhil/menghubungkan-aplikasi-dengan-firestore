@@ -69,22 +69,25 @@ public class DBHelper extends SQLiteOpenHelper {
 
             res.moveToNext();
         }
-
+        close();
         return array_list;
     }
 
     public boolean updateData(String id, String nama) {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("name", nama);
         String query = "UPDATE " + SISWA_TABLE_NAME + " SET " + SISWA_COLUMN_NAME + " = '" + nama + "' WHERE " + SISWA_COLUMN_ID + " = '" + id + "'";
-        Log.d(TAG, "Query =" + query);
+        Log.w("query = ", query);
         db.execSQL(query);
-
         return true;
     }
 
+    public boolean deleteData(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Log.w("Query "," data delete");
+        db.delete(SISWA_TABLE_NAME, "id=?", new String[]{id});
+        db.close();
+        return true;
+    }
 }
 
 
