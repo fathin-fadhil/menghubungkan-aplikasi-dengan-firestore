@@ -59,17 +59,54 @@ public class SiswaAdapter extends ArrayAdapter<Siswa> {
                 final EditText inpAlamat = new EditText(getContext());
                 final EditText inpNohp = new EditText(getContext());
 
+                final TextView namainp = new TextView(getContext());
+                final TextView alamatinp = new TextView(getContext());
+                final TextView nohpinp = new TextView(getContext());
+                int textsize = 20;
+
                 builder.setView(input);
                 builder.setView(inpAlamat);
                 builder.setView(inpNohp);
+                builder.setView(namainp);
+                builder.setView(alamatinp);
+                builder.setView(nohpinp);
+
+                input.setHint("Nama");
+                inpAlamat.setHint("Alamat");
+                inpNohp.setHint("Nomor Telepon");
+
+                namainp.setText("Nama :");
+                alamatinp.setText("Alamat :");
+                nohpinp.setText("No Telepon :");
+
+                namainp.setTextColor(getContext().getColor(R.color.black));
+                alamatinp.setTextColor(getContext().getColor(R.color.black));
+                nohpinp.setTextColor(getContext().getColor(R.color.black));
+
+                namainp.setTextSize(textsize);
+                alamatinp.setTextSize(textsize);
+                nohpinp.setTextSize(textsize);
 
                 LinearLayout layoutdialog = new LinearLayout(getContext());
-                layoutdialog.setOrientation(LinearLayout.VERTICAL);;
+                LinearLayout parentView = new LinearLayout(getContext());
+                layoutdialog.setOrientation(LinearLayout.VERTICAL);
+                parentView.setOrientation(LinearLayout.VERTICAL);
+
+                layoutdialog.addView(namainp);
                 layoutdialog.addView(input);
+
+                layoutdialog.addView(alamatinp);
                 layoutdialog.addView(inpAlamat);
+
+                layoutdialog.addView(nohpinp);
                 layoutdialog.addView(inpNohp);
+
+                layoutdialog.setPadding(40,10,40,0);
+
                 builder.setView(layoutdialog);
 
+                parentView.addView(layoutdialog);
+                builder.setView(parentView);
 
                 input.setText(nama.getText().toString().trim());
                 inpAlamat.setText(alamat.getText().toString().trim());
