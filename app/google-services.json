@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "641189169268",
+    "project_id": "coding-community-666",
+    "storage_bucket": "coding-community-666.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641189169268:android:02ec5e005206bc001ca921",
+        "android_client_info": {
+          "package_name": "com.and.codingcommunity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "641189169268-78l4vb1m34uf9t9drtn0g8thbkpfedan.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZmjcxLPK8afd_Qc4gfQZH60cLVdG1Ioo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "641189169268-78l4vb1m34uf9t9drtn0g8thbkpfedan.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

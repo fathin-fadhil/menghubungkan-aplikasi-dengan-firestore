@@ -14,9 +14,9 @@
         android:id="@+id/fragment_insert_siswa"
         android:name="com.and.codingcommunity.InsertSiswaFragment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.15"
-
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_height="wrap_content"
         />
 
     <androidx.fragment.app.FragmentContainerView

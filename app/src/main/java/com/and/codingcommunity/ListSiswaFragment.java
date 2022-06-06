@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ListSiswaFragment extends Fragment {
 
@@ -55,11 +56,13 @@ public class ListSiswaFragment extends Fragment {
     }
 
     public void refreshList() {
-        Log.d(ListSiswaFragment.class.getName(), "refreshList: clicked");
+        //Log.d(ListSiswaFragment.class.getName(), "refreshList: clicked");
         ArrayList array_list = mydb.getAllSiswa();
         siswaAdapter.clear();
         siswaAdapter.addAll(array_list);
         siswaAdapter.notifyDataSetChanged();
     }
+
+
 
 }

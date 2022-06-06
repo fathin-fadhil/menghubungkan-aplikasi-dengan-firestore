@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.nfc.Tag;
@@ -20,6 +21,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static final String SISWA_COLUMN_ID = "id";
     public static final String SISWA_COLUMN_NAME = "name";
+    public static final String SISWA_COLUMN_ALAMAT= "alamat";
+    public static final String SISWA_COLUMN_NOHP= "nohp";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -28,9 +31,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(
-                "create table siswa " +
-                        "(id integer primary key, " +
-                        "name text) "
+                "create table " + SISWA_TABLE_NAME  + " (id integer primary key, name text, alamat text, nohp text) "
         );
     }
 
@@ -40,13 +41,15 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public void insertSiswa(String name, String id) {
+    public void insertSiswa(String name, String id, String alamat, String nohp) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("id", id);
         contentValues.put("name", name);
+        contentValues.put("alamat", alamat);
+        contentValues.put("nohp", nohp);
 
         db.insert("siswa", null, contentValues);
     }
@@ -64,7 +67,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
             Siswa siswa = new Siswa(
                     res.getString(res.getColumnIndexOrThrow(SISWA_COLUMN_ID)),
-                    res.getString(res.getColumnIndexOrThrow(SISWA_COLUMN_NAME)));
+                    res.getString(res.getColumnIndexOrThrow(SISWA_COLUMN_NAME)),
+                    res.getString(res.getColumnIndexOrThrow(SISWA_COLUMN_ALAMAT)),
+                    res.getString(res.getColumnIndexOrThrow(SISWA_COLUMN_NOHP)));
+            Log.w(TAG,(res.getString(res.getColumnIndexOrThrow(SISWA_COLUMN_ALAMAT)) + "NO HP = " + res.getString(res.getColumnIndexOrThrow(SISWA_COLUMN_NOHP))));
 
             array_list.add(siswa);
 
@@ -74,11 +80,20 @@ public class DBHelper extends SQLiteOpenHelper {
         return array_list;
     }
 
-    public boolean updateData(String id, String nama) {
+    public boolean updateData(String id, String nama, String alamat, String nohp) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "UPDATE " + SISWA_TABLE_NAME + " SET " + SISWA_COLUMN_NAME + " = '" + nama + "' WHERE " + SISWA_COLUMN_ID + " = '" + id + "'";
-        Log.w("query = ", query);
-        db.execSQL(query);
+        ContentValues contentValues = new ContentValues();
+        //String query = "UPDATE " + SISWA_TABLE_NAME + " SET " + SISWA_COLUMN_NAME + " = '" + nama + "' WHERE " + SISWA_COLUMN_ID + " = '" + id + "'";
+        Log.w("query = ", "update");
+        //db.execSQL(query);
+
+        contentValues.put(SISWA_COLUMN_ID, id);
+        contentValues.put(SISWA_COLUMN_NAME, nama);
+        contentValues.put(SISWA_COLUMN_ALAMAT, alamat);
+        contentValues.put(SISWA_COLUMN_NOHP, nohp);
+        Log.w("update", contentValues.toString());
+        db.update(SISWA_TABLE_NAME, contentValues, "id=?", new String[] {id});
+
         return true;
     }
 
