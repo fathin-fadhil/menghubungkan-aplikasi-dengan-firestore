@@ -16,7 +16,12 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -79,16 +84,23 @@ public class ListSiswaFragment extends Fragment {
                 });
 
 
-        //auto update every 1 second because i cant figure out how to auto update this piece of garbage yet..
-        final Handler handler = new Handler();
-        handler.postDelayed( new Runnable() {
-
+        db.collection("siswa").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void run() {
-                refreshList();
-                handler.postDelayed( this, 1000 );
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Log.w("Listening", "Listen failed.", error);
+                    return;
+                }
+
+                if (value != null) {
+                    Log.d("Listening", "Current data: " + value.getQuery());
+                    refreshList();
+                } else {
+                    Log.d("Listening", "Current data: null");
+                }
             }
-        }, 1000 );
+        });
+
 
     }
 
