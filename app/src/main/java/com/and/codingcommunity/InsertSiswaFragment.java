@@ -14,6 +14,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class InsertSiswaFragment extends Fragment {
     @Nullable
     @Override
@@ -51,20 +59,45 @@ public class InsertSiswaFragment extends Fragment {
                         editTextId.setError("ID Kosong");
                     }
                     if(TextUtils.isEmpty(editTextAlamat.getText().toString())){
-                        editTextId.setError("Alamat Kosong");
+                        editTextAlamat.setError("Alamat Kosong");
                     }
                     if(TextUtils.isEmpty(editTextNohp.getText().toString())){
-                        editTextId.setError("Nomor Telepon Kosong");
+                        editTextNohp.setError("Nomor Telepon Kosong");
                     }
 
                 } else {
 
-                    mydb.insertSiswa(editTextNama.getText().toString().trim(), editTextId.getText().toString().trim(), editTextAlamat.getText().toString().trim(), editTextNohp.getText().toString().trim());
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    String id = db.collection("siswa").document().getId();
+                    Map<String, Object> siswa = new HashMap<>();
+                    siswa.put("id", editTextId.getText().toString().trim());
+                    siswa.put("nama", editTextNama.getText().toString().trim());
+                    siswa.put("alamat", editTextAlamat.getText().toString().trim());
+                    siswa.put("nohp", editTextNohp.getText().toString().trim());
 
-                    Log.w("nama", editTextNama.getText().toString().trim());
-                    Log.w("id", editTextId.getText().toString().trim());
-                    Log.w("alamat", editTextAlamat.getText().toString().trim());
-                    Log.w("nohp", editTextNohp.getText().toString().trim());
+                    db.collection("siswa")
+                            .add(siswa)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Log.w("TAG", "data siswa dengan ID = " + documentReference.getId() + "berhasil ditambahkan");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("TAG", "data siswa gagal ditambahkan", e);
+                                }
+                            });
+
+
+
+//                    mydb.insertSiswa(editTextNama.getText().toString().trim(), editTextId.getText().toString().trim(), editTextAlamat.getText().toString().trim(), editTextNohp.getText().toString().trim());
+//
+//                    Log.w("nama", editTextNama.getText().toString().trim());
+//                    Log.w("id", editTextId.getText().toString().trim());
+//                    Log.w("alamat", editTextAlamat.getText().toString().trim());
+//                    Log.w("nohp", editTextNohp.getText().toString().trim());
 
                     FragmentManager fm = getActivity().getSupportFragmentManager();
                     ListSiswaFragment fragm = (ListSiswaFragment)

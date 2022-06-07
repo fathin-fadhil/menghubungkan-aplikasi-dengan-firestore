@@ -45,5 +45,7 @@ dependencies {
     // jangan spesifikan versi library firebase bila menggunakan BoM
     implementation 'com.google.firebase:firebase-firestore'
 
+    implementation 'com.google.firebase:firebase-analytics'
+
 
 }
