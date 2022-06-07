@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +17,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -76,20 +76,22 @@ public class InsertSiswaFragment extends Fragment {
                     siswa.put("nohp", editTextNohp.getText().toString().trim());
 
                     db.collection("siswa")
-                            .add(siswa)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            .document(editTextId.getText().toString().trim())
+                            .set(siswa)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.w("TAG", "data siswa dengan ID = " + documentReference.getId() + "berhasil ditambahkan");
+                                public void onSuccess(Void unused) {
+                                    Log.w("TAG", "data siswa dengan ID = " + editTextId.getText().toString() + "berhasil ditambahkan");
+                                    Toast.makeText(getContext(),"Data Berhasil Ditambahkan", Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     Log.w("TAG", "data siswa gagal ditambahkan", e);
+                                    Toast.makeText(getContext(),"Data Gagal Ditambahkan", Toast.LENGTH_SHORT).show();
                                 }
                             });
-
 
 
 //                    mydb.insertSiswa(editTextNama.getText().toString().trim(), editTextId.getText().toString().trim(), editTextAlamat.getText().toString().trim(), editTextNohp.getText().toString().trim());

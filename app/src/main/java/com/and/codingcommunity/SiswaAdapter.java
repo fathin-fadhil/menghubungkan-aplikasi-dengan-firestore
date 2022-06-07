@@ -3,6 +3,8 @@ package com.and.codingcommunity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +17,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class SiswaAdapter extends ArrayAdapter<Siswa> {
@@ -74,6 +82,7 @@ public class SiswaAdapter extends ArrayAdapter<Siswa> {
                 input.setHint("Nama");
                 inpAlamat.setHint("Alamat");
                 inpNohp.setHint("Nomor Telepon");
+                inpNohp.setInputType(InputType.TYPE_CLASS_PHONE);
 
                 namainp.setText("Nama :");
                 alamatinp.setText("Alamat :");
@@ -115,7 +124,7 @@ public class SiswaAdapter extends ArrayAdapter<Siswa> {
                 builder.setPositiveButton("SIMPAN", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String editnama = input.getText().toString().trim();
+                        /*String editnama = input.getText().toString().trim();
                         String editalamat = inpAlamat.getText().toString().trim();
                         String editnohp = inpNohp.getText().toString().trim();
 
@@ -127,7 +136,31 @@ public class SiswaAdapter extends ArrayAdapter<Siswa> {
                             Toast.makeText(getContext(),"Data Tersimpan", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getContext(),"Gagal Menyimpan Data", Toast.LENGTH_SHORT).show();
-                        }
+                        }*/
+
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        Map<String, Object> siswaUpdate = new HashMap<>();
+                        siswaUpdate.put("id", id.getText().toString().trim());
+                        siswaUpdate.put("nama", input.getText().toString().trim());
+                        siswaUpdate.put("alamat", inpAlamat.getText().toString().trim());
+                        siswaUpdate.put("nohp", inpNohp.getText().toString().trim());
+
+                        db.collection("siswa").document(id.getText().toString().trim())
+                                .set(siswaUpdate)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.w("TAG", "data siswa dengan ID = " + id.getText().toString() + "berhasil diubah = " + input.getText().toString() );
+                                        Toast.makeText(getContext(),"Data Berhasil Diubah", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w("TAG", "data siswa gagal ditambahkan", e);
+                                        Toast.makeText(getContext(),"Data Gagal Diubah", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                     }
                 });
 
@@ -151,13 +184,31 @@ public class SiswaAdapter extends ArrayAdapter<Siswa> {
                 builder.setPositiveButton("HAPUS", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
-                        boolean isDeleted = mydb.deleteData(id.getText().toString().trim());
+                        /*boolean isDeleted = mydb.deleteData(id.getText().toString().trim());
                         if(isDeleted) {
                             notifyDataSetChanged(); //<-- useless piece of shiy
                             Toast.makeText(getContext(),"Data Terhapus", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getContext(),"Gagal Menghapus Data", Toast.LENGTH_SHORT).show();
-                        }
+                        }*/
+
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        db.collection("siswa")
+                                .document(id.getText().toString().trim())
+                                .delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(getContext(),"Data Terhapus", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getContext(),"Gagal Menghapus Data", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
                     }
                 });
                 builder.setNegativeButton("BATAL", new DialogInterface.OnClickListener() {

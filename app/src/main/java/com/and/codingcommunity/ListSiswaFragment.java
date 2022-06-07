@@ -21,7 +21,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ListSiswaFragment extends Fragment {
 
@@ -80,7 +79,7 @@ public class ListSiswaFragment extends Fragment {
                 });
 
 
-        //auto update every 1 second because  i canr figure out how to refresh listview from inside the edit button in the adapter bruhhhhhhhhhhhh
+        //auto update every 1 second because i cant figure out how to auto update this piece of garbage yet..
         final Handler handler = new Handler();
         handler.postDelayed( new Runnable() {
 
@@ -90,7 +89,6 @@ public class ListSiswaFragment extends Fragment {
                 handler.postDelayed( this, 1000 );
             }
         }, 1000 );
-
 
     }
 
