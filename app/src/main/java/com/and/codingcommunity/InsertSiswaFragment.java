@@ -17,6 +17,8 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -74,23 +76,42 @@ public class InsertSiswaFragment extends Fragment {
                     siswa.put("alamat", editTextAlamat.getText().toString().trim());
                     siswa.put("nohp", editTextNohp.getText().toString().trim());
 
-                    db.collection("siswa")
-                            .document(editTextId.getText().toString().trim())
-                            .set(siswa)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    DocumentReference theDocument = db.collection("siswa").document(editTextId.getText().toString().trim());
+
+                    theDocument.get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                 @Override
-                                public void onSuccess(Void unused) {
-                                    Log.w("TAG", "data siswa dengan ID = " + editTextId.getText().toString() + "berhasil ditambahkan");
-                                    Toast.makeText(getContext(),"Data Berhasil Ditambahkan", Toast.LENGTH_SHORT).show();
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    if (!documentSnapshot.exists() || documentSnapshot == null) {
+                                        theDocument.set(siswa)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Log.w("TAG", "data siswa dengan ID = " + editTextId.getText().toString() + "berhasil ditambahkan");
+                                                        Toast.makeText(getContext(),"Data Berhasil Ditambahkan", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w("TAG", "data siswa gagal ditambahkan", e);
+                                                        Toast.makeText(getContext(),"Data Gagal Ditambahkan", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                        } else {
+                                        Log.w("TAG", "data siswa sudah ada");
+                                        Toast.makeText(getContext(),"ID Sudah digunakan", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.w("TAG", "data siswa gagal ditambahkan", e);
-                                    Toast.makeText(getContext(),"Data Gagal Ditambahkan", Toast.LENGTH_SHORT).show();
+                                    Log.w("TAG", "gagal memvalidasi data", e);
+                                    Toast.makeText(getContext(),"Gagal Menghubungi Server", Toast.LENGTH_SHORT).show();
                                 }
                             });
+
 
 
 //                    mydb.insertSiswa(editTextNama.getText().toString().trim(), editTextId.getText().toString().trim(), editTextAlamat.getText().toString().trim(), editTextNohp.getText().toString().trim());
