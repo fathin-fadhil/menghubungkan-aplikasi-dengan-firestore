@@ -140,7 +140,6 @@ public class SiswaAdapter extends ArrayAdapter<Siswa> {
 
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                         Map<String, Object> siswaUpdate = new HashMap<>();
-                        siswaUpdate.put("id", id.getText().toString().trim());
                         siswaUpdate.put("nama", input.getText().toString().trim());
                         siswaUpdate.put("alamat", inpAlamat.getText().toString().trim());
                         siswaUpdate.put("nohp", inpNohp.getText().toString().trim());

@@ -70,7 +70,6 @@ public class InsertSiswaFragment extends Fragment {
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                     String id = db.collection("siswa").document().getId();
                     Map<String, Object> siswa = new HashMap<>();
-                    siswa.put("id", editTextId.getText().toString().trim());
                     siswa.put("nama", editTextNama.getText().toString().trim());
                     siswa.put("alamat", editTextAlamat.getText().toString().trim());
                     siswa.put("nohp", editTextNohp.getText().toString().trim());

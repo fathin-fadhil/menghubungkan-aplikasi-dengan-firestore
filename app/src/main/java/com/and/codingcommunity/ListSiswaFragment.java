@@ -65,7 +65,7 @@ public class ListSiswaFragment extends Fragment {
 
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Siswa siswa = new Siswa(document.getString("id"),
+                                Siswa siswa = new Siswa(document.getId(),
                                                         document.getString("nama"),
                                                         document.getString("alamat"),
                                                         document.getString("nohp"));
@@ -121,7 +121,7 @@ public class ListSiswaFragment extends Fragment {
                         if (task.isSuccessful()) {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Siswa siswa = new Siswa(document.getString("id"),
+                                Siswa siswa = new Siswa(document.getId(),
                                         document.getString("nama"),
                                         document.getString("alamat"),
                                         document.getString("nohp"));
